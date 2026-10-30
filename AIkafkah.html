@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafkah AI - Bootstrap Assistant</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f1f5f9;
+        }
+
+        .chat-box {
+            height: 500px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            margin-bottom: 12px;
+            max-width: 80%;
+        }
+
+        .user {
+            background: #0d6efd;
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot {
+            background: #e9ecef;
+            color: #212529;
+        }
+
+        .brand {
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+        .online {
+            color: #198754;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <div class="brand">🤖 Kafkah AI</div>
+        <div class="online">● Online - Bootstrap Assistant</div>
+        <p class="text-muted">
+            AI pembantu belajar HTML, CSS, JavaScript & Bootstrap
+        </p>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-box shadow-sm" id="chatBox">
+
+        <div class="message bot">
+            👋 Halo! Saya <b>Kafkah AI</b>.<br><br>
+
+            Saya dibuat untuk membantu kamu belajar:
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Bootstrap 5</li>
+                <li>Form Bootstrap</li>
+                <li>Navbar</li>
+                <li>Card</li>
+                <li>Grid System</li>
+                <li>Button</li>
+                <li>Container</li>
+                <li>Responsive Design</li>
+            </ul>
+
+            Saya juga mengetahui bahwa pembuat saya berumur
+            <b>16 tahun</b>. 😎
+        </div>
+
+    </div>
+
+    <!-- Input -->
+    <div class="input-group mt-3">
+        <input
+            type="text"
+            id="userInput"
+            class="form-control"
+            placeholder="Tanya Kafkah tentang Bootstrap..."
+            onkeydown="if(event.key === 'Enter') sendMessage()"
+        >
+
+        <button class="btn btn-primary" onclick="sendMessage()">
+            Kirim
+        </button>
+    </div>
+
+    <!-- Quick Button -->
+    <div class="mt-3 d-flex gap-2 flex-wrap">
+        <button class="btn btn-outline-primary btn-sm"
+                onclick="quickAsk('apa itu bootstrap')">
+            Apa itu Bootstrap?
+        </button>
+
+        <button class="btn btn-outline-primary btn-sm"
+                onclick="quickAsk('jelaskan container')">
+            Container
+        </button>
+
+        <button class="btn btn-outline-primary btn-sm"
+                onclick="quickAsk('jelaskan grid')">
+            Grid
+        </button>
+
+        <button class="btn btn-outline-primary btn-sm"
+                onclick="quickAsk('buatkan navbar')">
+            Navbar
+        </button>
+    </div>
+
+</div>
+
+
+<script>
+
+function sendMessage() {
+
+    let input = document.getElementById("userInput");
+    let text = input.value.trim();
+
+    if (text === "") return;
+
+    addMessage(text, "user");
+
+    input.value = "";
+
+    setTimeout(() => {
+
+        let response = kafkahAI(text);
+
+        addMessage(response, "bot");
+
+    }, 500);
+}
+
+
+function quickAsk(question) {
+
+    document.getElementById("userInput").value = question;
+
+    sendMessage();
+
+}
+
+
+function addMessage(text, type) {
+
+    let chatBox = document.getElementById("chatBox");
+
+    let message = document.createElement("div");
+
+    message.classList.add("message", type);
+
+    message.innerHTML = text;
+
+    chatBox.appendChild(message);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+function kafkahAI(question) {
+
+    let q = question.toLowerCase();
+
+
+    // IDENTITAS KAfkAH
+    if (
+        q.includes("siapa kamu") ||
+        q.includes("kamu siapa") ||
+        q.includes("nama kamu") ||
+        q.includes("nama ai")
+    ) {
+
+        return `
+        🤖 Nama saya <b>Kafkah AI</b>.<br><br>
+        Saya adalah AI pembantu belajar coding,
+        khususnya <b>Bootstrap, HTML, CSS dan JavaScript</b>.
+        `;
+    }
+
+
+    // PEMBUAT
+    if (
+        q.includes("pembuat kamu") ||
+        q.includes("yang membuat kamu") ||
+        q.includes("umur pembuat") ||
+        q.includes("umur yang membuat")
+    ) {
+
+        return `
+        👨‍💻 Pembuat saya adalah seorang pelajar
+        yang berumur <b>16 tahun</b>.<br><br>
+        Saya dibuat sebagai teman belajar coding.
+        `;
+    }
+
+
+    // BOOTSTRAP
+    if (
+        q.includes("apa itu bootstrap") ||
+        q.includes("bootstrap itu apa")
+    ) {
+
+        return `
+        📚 <b>Bootstrap</b> adalah framework CSS
+        yang digunakan untuk membuat website
+        lebih cepat, rapi dan responsive.<br><br>
+
+        Contohnya:
+        <br><br>
+
+        <code>
+        &lt;button class="btn btn-primary"&gt;
+        Klik Saya
+        &lt;/button&gt;
+        </code>
+        `;
+    }
+
+
+    // CONTAINER
+    if (q.includes("container")) {
+
+        return `
+        📦 <b>Container</b> digunakan untuk membungkus
+        isi website agar memiliki lebar dan posisi
+        yang lebih teratur.<br><br>
+
+        Contoh:
+        <br><br>
+
+        <code>
+        &lt;div class="container"&gt;
+            Isi website
+        &lt;/div&gt;
+        </code>
+        `;
+    }
+
+
+    // GRID
+    if (
+        q.includes("grid") ||
+        q.includes("col") ||
+        q.includes("row")
+    ) {
+
+        return `
+        🧱 Bootstrap menggunakan sistem <b>Grid</b>
+        dengan 12 kolom.<br><br>
+
+        Contoh:
+        <br><br>
+
+        <code>
+        &lt;div class="row"&gt;
+
+            &lt;div class="col-md-6"&gt;
+                Kolom 1
+            &lt;/div&gt;
+
+            &lt;div class="col-md-6"&gt;
+                Kolom 2
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+        </code>
+        `;
+    }
+
+
+    // BUTTON
+    if (
+        q.includes("button") ||
+        q.includes("tombol")
+    ) {
+
+        return `
+        🔘 Contoh tombol Bootstrap:
+
+        <br><br>
+
+        <code>
+        &lt;button class="btn btn-primary"&gt;
+            Klik Saya
+        &lt;/button&gt;
+        </code>
+
+        <br><br>
+
+        Beberapa warna button:
+        <br>
+        <b>primary</b>,
+        <b>success</b>,
+        <b>danger</b>,
+        <b>warning</b>,
+        <b>info</b>,
+        <b>dark</b>.
+        `;
+    }
+
+
+    // NAVBAR
+    if (
+        q.includes("navbar") ||
+        q.includes("menu navigasi")
+    ) {
+
+        return `
+        🧭 Navbar Bootstrap digunakan untuk
+        membuat menu navigasi website.
+
+        <br><br>
+
+        Contoh:
+
+        <br><br>
+
+        <code>
+        &lt;nav class="navbar navbar-dark bg-dark"&gt;
+
+            &lt;div class="container"&gt;
+
+                &lt;a class="navbar-brand"
+                href="#"&gt;
+                Website Saya
+                &lt;/a&gt;
+
+            &lt;/div&gt;
+
+        &lt;/nav&gt;
+        </code>
+        `;
+    }
+
+
+    // CARD
+    if (q.includes("card")) {
+
+        return `
+        🃏 <b>Card</b> digunakan untuk membuat
+        kotak informasi atau konten.
+
+        <br><br>
+
+        Contoh:
+
+        <br><br>
+
+        <code>
+        &lt;div class="card"&gt;
+
+            &lt;div class="card-body"&gt;
+
+                &lt;h5 class="card-title"&gt;
+                    Judul
+                &lt;/h5&gt;
+
+                &lt;p class="card-text"&gt;
+                    Isi card
+                &lt;/p&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+        </code>
+        `;
+    }
+
+
+    // FORM
+    if (
+        q.includes("form") ||
+        q.includes("input")
+    ) {
+
+        return `
+        📝 Bootstrap bisa digunakan untuk
+        membuat form yang lebih rapi.
+
+        <br><br>
+
+        Contoh:
+
+        <br><br>
+
+        <code>
+        &lt;input
+        type="text"
+        class="form-control"
+        placeholder="Nama"&gt;
+        </code>
+        `;
+    }
+
+
+    // RESPONSIVE
+    if (
+        q.includes("responsive") ||
+        q.includes("hp") ||
+        q.includes("mobile")
+    ) {
+
+        return `
+        📱 Bootstrap mempunyai sistem responsive
+        sehingga website bisa menyesuaikan ukuran
+        layar HP, tablet dan komputer.
+
+        <br><br>
+
+        Contohnya:
+
+        <br><br>
+
+        <code>
+        col-12 col-md-6 col-lg-4
+        </code>
+
+        <br><br>
+
+        Artinya ukuran kolom dapat berubah
+        sesuai ukuran layar.
+        `;
+    }
+
+
+    // CSS
+    if (q.includes("css")) {
+
+        return `
+        🎨 CSS digunakan untuk mengatur tampilan
+        website seperti warna, ukuran, posisi,
+        background dan lain-lain.
+
+        <br><br>
+
+        Bootstrap sendiri menggunakan CSS
+        sebagai salah satu bagian utamanya.
+        `;
+    }
+
+
+    // HTML
+    if (q.includes("html")) {
+
+        return `
+        🌐 HTML adalah bahasa markup yang digunakan
+        untuk membuat struktur sebuah halaman website.
+
+        <br><br>
+
+        Contoh:
+
+        <br><br>
+
+        <code>
+        &lt;h1&gt;Halo Dunia&lt;/h1&gt;
+        </code>
+        `;
+    }
+
+
+    // JAVASCRIPT
+    if (
+        q.includes("javascript") ||
+        q.includes("js")
+    ) {
+
+        return `
+        ⚡ JavaScript digunakan untuk membuat website
+        menjadi lebih interaktif.
+
+        Contohnya seperti:
+        <br>
+        - tombol
+        <br>
+        - popup
+        <br>
+        - validasi form
+        <br>
+        - animasi
+        <br>
+        - interaksi pengguna
+        `;
+    }
+
+
+    // SAPAAN
+    if (
+        q.includes("halo") ||
+        q.includes("hai") ||
+        q.includes("hello")
+    ) {
+
+        return `
+        👋 Halo juga! Saya <b>Kafkah AI</b>.
+
+        <br><br>
+
+        Mau belajar Bootstrap?
+        Tanya aja langsung.
+        `;
+    }
+
+
+    // DEFAULT
+    return `
+    🤖 Saya belum memahami pertanyaan itu.
+
+    <br><br>
+
+    Coba tanyakan tentang:
+
+    <br>
+    • Bootstrap
+    <br>
+    • Container
+    <br>
+    • Grid
+    <br>
+    • Navbar
+    <br>
+    • Card
+    <br>
+    • Button
+    <br>
+    • Form
+    <br>
+    • Responsive
+    <br>
+    • HTML
+    <br>
+    • CSS
+    <br>
+    • JavaScript
+    `;
+}
+
+</script>
+
+</body>
+</html>
